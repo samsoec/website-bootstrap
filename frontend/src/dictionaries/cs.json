@@ -1,0 +1,46 @@
+{
+  "common": {
+    "loading": "Načítání...",
+    "search": "Hledat",
+    "noImage": "Žádný obrázek"
+  },
+  "actions": {
+    "learnMore": "Zjistit více",
+    "showMore": "Zobrazit více",
+    "submit": "Odeslat",
+    "submitting": "Odesílání...",
+    "view": "Zobrazit"
+  },
+  "validation": {
+    "invalidEmail": "Neplatný formát e-mailu.",
+    "requiredFields": "Vyplňte prosím všechna povinná pole.",
+    "emailRequired": "E-mail je povinný."
+  },
+  "messages": {
+    "success": {
+      "formSubmitted": "Děkujeme! Vaše zpráva byla úspěšně odeslána."
+    },
+    "error": {
+      "somethingWentWrong": "Něco se pokazilo!",
+      "errorOccurred": "Došlo k chybě. Zkuste to prosím znovu.",
+      "failedToSubmit": "Formulář se nepodařilo odeslat. Zkuste to prosím znovu."
+    }
+  },
+  "search": {
+    "searchPlaceholder": "Hledat...",
+    "noResultsFound": "Nenalezeny žádné výsledky",
+    "showing": "Zobrazeno",
+    "results": "výsledků"
+  },
+  "articles": {
+    "notFound": "Nebyly nalezeny žádné články",
+    "previous": "Předchozí",
+    "next": "Další"
+  },
+  "notFound": {
+    "title": "Stránka nenalezena",
+    "heading": "404 - Stránka nenalezena",
+    "message": "Omlouváme se, hledaná stránka neexistuje nebo byla přesunuta.",
+    "homeButton": "Zpět na úvodní stránku"
+  }
+}

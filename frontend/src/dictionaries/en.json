@@ -1,0 +1,46 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "search": "Search",
+    "noImage": "No image"
+  },
+  "actions": {
+    "learnMore": "Learn More",
+    "showMore": "Show More",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "view": "View"
+  },
+  "validation": {
+    "invalidEmail": "Invalid email format.",
+    "requiredFields": "Please fill in all required fields.",
+    "emailRequired": "Email is required."
+  },
+  "messages": {
+    "success": {
+      "formSubmitted": "Thank you! Your message has been submitted successfully."
+    },
+    "error": {
+      "somethingWentWrong": "Something went wrong!",
+      "errorOccurred": "An error occurred. Please try again.",
+      "failedToSubmit": "Failed to submit form. Please try again."
+    }
+  },
+  "search": {
+    "searchPlaceholder": "Search...",
+    "noResultsFound": "No results found",
+    "showing": "Showing",
+    "results": "results"
+  },
+  "articles": {
+    "notFound": "No articles found",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "heading": "404 - Page Not Found",
+    "message": "Sorry, the page you are looking for does not exist or has been moved.",
+    "homeButton": "Back to Home"
+  }
+}

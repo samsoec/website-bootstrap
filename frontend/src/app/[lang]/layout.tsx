@@ -9,6 +9,8 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import { FALLBACK_SEO } from "@/app/[lang]/utils/constants";
 import type { Global, StrapiResponse } from "@/types/generated";
+import { DictionaryProvider } from "@/contexts/DictionaryContext";
+import { getDictionary, type Locale as DictionaryLocale } from "@/dictionaries";
 
 async function getGlobal(lang: string): Promise<StrapiResponse<Global> | null> {
   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
@@ -52,6 +54,7 @@ export async function generateMetadata({
   if (!meta?.data) return FALLBACK_SEO;
 
   const { metadata, favicon } = meta.data;
+  if (!metadata || !favicon) return FALLBACK_SEO;
   const { url } = favicon;
 
   return {
@@ -82,44 +85,50 @@ export default async function RootLayout({
   }
 
   const global = await getGlobal(lang);
+  const dict = await getDictionary(lang as DictionaryLocale);
+
+  const { notificationBanner, navbar, footer } = global?.data ?? {};
+
   // TODO: CREATE A CUSTOM ERROR PAGE
-  if (!global?.data) {
+  if (!navbar || !footer) {
     return (
       <html lang={lang}>
         <body>
-          <main className="dark:bg-black dark:text-gray-100 min-h-screen">{children}</main>
+          <DictionaryProvider dict={dict} lang={lang}>
+            <main className="dark:bg-black dark:text-gray-100 min-h-screen">{children}</main>
+          </DictionaryProvider>
         </body>
       </html>
     );
   }
 
-  const { notificationBanner, navbar, footer } = global.data;
+  const navbarLogoUrl = getStrapiMedia(navbar.navbarLogo?.logoImg?.url ?? null);
 
-  const navbarLogoUrl = getStrapiMedia(navbar.navbarLogo.logoImg.url);
-
-  const footerLogoUrl = getStrapiMedia(footer.footerLogo.logoImg.url);
+  const footerLogoUrl = getStrapiMedia(footer.footerLogo?.logoImg?.url ?? null);
 
   return (
     <html lang={lang}>
       <body>
-        <Navbar
-          links={navbar.links}
-          logoUrl={navbarLogoUrl}
-          logoText={navbar.navbarLogo.logoText ?? null}
-        />
+        <DictionaryProvider dict={dict} lang={lang}>
+          <Navbar
+            links={navbar.links ?? []}
+            logoUrl={navbarLogoUrl}
+            logoText={navbar.navbarLogo?.logoText ?? null}
+          />
 
-        <main className="dark:bg-black dark:text-gray-100 min-h-screen">{children}</main>
+          <main className="dark:bg-black dark:text-gray-100 min-h-screen">{children}</main>
 
-        <Banner data={notificationBanner ?? null} />
+          <Banner data={notificationBanner ?? null} />
 
-        <Footer
-          logoUrl={footerLogoUrl}
-          logoText={footer.footerLogo.logoText ?? null}
-          menuLinks={footer.menuLinks}
-          categoryLinks={footer.categories}
-          legalLinks={footer.legalLinks}
-          socialLinks={footer.socialLinks}
-        />
+          <Footer
+            logoUrl={footerLogoUrl}
+            logoText={footer.footerLogo?.logoText ?? null}
+            menuLinks={footer.menuLinks ?? []}
+            categoryLinks={footer.categories ?? []}
+            legalLinks={footer.legalLinks ?? []}
+            socialLinks={footer.socialLinks ?? []}
+          />
+        </DictionaryProvider>
       </body>
     </html>
   );
