@@ -88,9 +88,9 @@ function toTypeName(category, name) {
 }
 
 function attributeToTsType(attr, attrName, componentSchemas) {
-  const { type, component, components, target, relation, multiple, repeatable } = attr;
+  const { type, component, components, target, relation, multiple, repeatable, required } = attr;
   let tsType;
-  let isOptional = ['seo', 'notificationBanner'].includes(attrName);
+  let isOptional = ['seo', 'notificationBanner'].includes(attrName) || required !== true;
 
   switch (type) {
     case 'string':

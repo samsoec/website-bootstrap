@@ -12,7 +12,7 @@ export default function Slideshow({ data }: SlideShowProps) {
   return (
     <div className="slide-container">
       <Fade>
-        {data.files.map((fadeImage, index) => {
+        {(data.files ?? []).map((fadeImage, index) => {
           const imageUrl = getStrapiMedia(fadeImage.url);
           return (
             <div key={index}>

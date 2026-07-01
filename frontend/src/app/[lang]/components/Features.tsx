@@ -47,7 +47,7 @@ export default function Features({ data }: FeaturesProps) {
         <p className="dark:text-gray-400">{data.description}</p>
       </div>
       <div className="container mx-auto my-6 grid justify-center gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {data.feature.map((feature: FeatureType, index: number) => (
+        {(data.feature ?? []).map((feature: FeatureType, index: number) => (
           <Feature key={index} {...feature} />
         ))}
       </div>

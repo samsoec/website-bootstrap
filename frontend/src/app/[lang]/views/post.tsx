@@ -6,8 +6,8 @@ import type { Article, ArticleBlock } from "@/types/generated";
 export default function Post({ data }: { data: Article }) {
   const { title, description, publishedAt, cover, authorsBio } = data;
   const author = authorsBio;
-  const imageUrl = getStrapiMedia(cover?.url);
-  const authorImgUrl = getStrapiMedia(authorsBio?.avatar?.url);
+  const imageUrl = getStrapiMedia(cover?.url ?? null);
+  const authorImgUrl = getStrapiMedia(authorsBio?.avatar?.url ?? null);
 
   return (
     <article className="space-y-8 dark:bg-black dark:text-gray-50">
@@ -43,7 +43,7 @@ export default function Post({ data }: { data: Article }) {
       <div className="dark:text-gray-100">
         <p>{description}</p>
 
-        {data.blocks.map((section: ArticleBlock, index: number) =>
+        {(data.blocks ?? []).map((section: ArticleBlock, index: number) =>
           componentResolver(section, index)
         )}
       </div>

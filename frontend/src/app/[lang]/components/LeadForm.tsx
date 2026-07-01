@@ -13,7 +13,7 @@ export default function Email({ data }: LeadFormProps) {
           <h1 className="text-5xl font-bold leading-none">{data.title}</h1>
           <p className="text-lg">{data.description}</p>
         </div>
-        <FormSubmit placeholder={data.emailPlaceholder} text={data.submitButton.text} />
+        <FormSubmit placeholder={data.emailPlaceholder ?? ""} text={data.submitButton?.text ?? ""} />
       </div>
     </section>
   );

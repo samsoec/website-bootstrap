@@ -23,10 +23,10 @@ function FooterLink({ url, text }: LinkType) {
   );
 }
 
-function CategoryLink({ name, slug }: { name: string; slug: string }) {
+function CategoryLink({ name, slug }: { name?: string; slug?: string }) {
   return (
     <li className="flex">
-      <Link href={`/blog/${slug}`} className="hover:dark:text-violet-400">
+      <Link href={`/blog/${slug ?? ""}`} className="hover:dark:text-violet-400">
         {name}
       </Link>
     </li>

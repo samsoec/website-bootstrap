@@ -30,12 +30,12 @@ export default function Hero({ data }: HeroProps) {
             color="dark:text-violet-400"
           />
           <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-            {data.buttons.map((button, index) => (
+            {(data.buttons ?? []).map((button, index) => (
               <Link
                 key={index}
-                href={button.url}
+                href={button.url ?? ""}
                 target={button.newTab ? "_blank" : "_self"}
-                className={renderButtonStyle(button.type)}
+                className={renderButtonStyle(button.type ?? "")}
               >
                 {button.text}
               </Link>

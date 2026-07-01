@@ -56,7 +56,7 @@ export default function Testimonials({ data }: TestimonialsProps) {
         <p className="mt-4 text-lg text-center">{data.description}</p>
       </div>
       <div className="container mx-auto grid grid-cols-1 gap-8 lg:gap-20 md:px-10 md:pb-10 lg:grid-cols-2">
-        {data.testimonials.map((testimonial: TestimonialType, index: number) => (
+        {(data.testimonials ?? []).map((testimonial: TestimonialType, index: number) => (
           <Testimonial key={index} {...testimonial} />
         ))}
       </div>

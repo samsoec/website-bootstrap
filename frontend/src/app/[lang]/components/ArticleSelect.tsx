@@ -24,12 +24,12 @@ export default function ArticleSelect({
       <div>
         <div className="flex flex-wrap py-6 space-x-2 dark:border-gray-400">
           {categories.map((category: Category) => {
-            if (category.articles.length === 0) return null;
+            if (!category.articles?.length) return null;
             return (
               <Link
                 key={category.id}
                 href={`/blog/${category.slug}`}
-                className={selectedFilter(category.slug, params.category)}
+                className={selectedFilter(category.slug ?? "", params.category)}
               >
                 #{category.name}
               </Link>

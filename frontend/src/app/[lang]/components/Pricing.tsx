@@ -13,7 +13,7 @@ export default function Pricing({ data }: PriceProps) {
           <h2 className="text-4xl font-bold lg:text-5xl">{data.title}</h2>
         </div>
         <div className="flex flex-wrap items-stretch max-w-5xl mx-auto">
-          {data.plans.map((plan) => (
+          {(data.plans ?? []).map((plan) => (
             <div key={plan.id} className="w-full p-4 mb-8  sm:mx-40 lg:mx-0 lg:w-1/3 lg:mb-0">
               <div
                 className={`flex flex-col p-6 space-y-6 rounded shadow sm:p-8 min-h-118.75 min-w-75 ${
@@ -29,7 +29,7 @@ export default function Pricing({ data }: PriceProps) {
                         plan.isRecommended ? "dark:text-gray-900" : "dark:text-violet-500"
                       }`}
                     >
-                      {plan.pricePeriod.toLowerCase()}
+                      {plan.pricePeriod?.toLowerCase()}
                     </span>
                   </span>
                 </div>
@@ -45,7 +45,7 @@ export default function Pricing({ data }: PriceProps) {
                     plan.isRecommended ? "dark:text-gray-900 font-semibold" : "dark:text-gray-400"
                   }`}
                 >
-                  {plan.product_features.map((feature) => (
+                  {(plan.product_features ?? []).map((feature) => (
                     <li key={feature.id} className="flex mb-2 space-x-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

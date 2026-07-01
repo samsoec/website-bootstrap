@@ -14,10 +14,10 @@ export default function PostList({
     <section className="container p-6 mx-auto space-y-6 sm:space-y-12">
       <div className="grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {articles.map((article) => {
-          const imageUrl = getStrapiMedia(article.cover?.url);
+          const imageUrl = getStrapiMedia(article.cover?.url ?? null);
           const category = article.category;
           const authorsBio = article.authorsBio;
-          const avatarUrl = getStrapiMedia(authorsBio?.avatar?.url);
+          const avatarUrl = getStrapiMedia(authorsBio?.avatar?.url ?? null);
 
           return (
             <Link
