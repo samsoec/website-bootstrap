@@ -105,12 +105,15 @@ module.exports = (config, { strapi }) => {
       seo: {
         fields: ["metaTitle", "metaDescription"],
         populate: { shareImage: true },
-      }
+      },
+      localizations: {
+        fields: ["slug", "locale"],
+      },
     };
-    
+
     ctx.query = {
       populate,
-      filters: { slug: ctx.query.filters.slug },
+      filters: { slug: ctx.query.filters?.slug },
       locale: ctx.query.locale,
     };
 

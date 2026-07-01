@@ -4,6 +4,11 @@ export default ({ env }) => ({
   app: {
     keys: env.array('APP_KEYS'),
   },
+  transfer: {
+    remote: {
+      enabled: true,
+    },
+  },
   watchIgnoreFiles: [
     '**/data/**',
     '**/public/uploads/**',
