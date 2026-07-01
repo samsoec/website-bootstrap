@@ -1,8 +1,18 @@
 import { ReactElement, lazy, createElement, Suspense } from "react";
 import Loader from "../components/Loader";
+import ScrollReveal from "../components/ScrollReveal";
 import type { PageSection, ArticleBlock } from "@/types/generated";
 
 type DynamicComponent = PageSection | ArticleBlock;
+
+/**
+ * Get the section ID from a component name
+ * e.g., 'sections.teams' -> 'teams', 'sections.about-company' -> 'about-company'
+ */
+export function getSectionId(component: string): string {
+  const parts = component.split(".");
+  return parts[1] || parts[0];
+}
 
 export default function componentResolver(section: DynamicComponent, index: number): ReactElement {
   // Component names do look like 'category.component-name' => lowercase and kebap case
@@ -10,6 +20,9 @@ export default function componentResolver(section: DynamicComponent, index: numb
 
   // Get component name
   const component = names[1];
+
+  // Get the section ID for anchor linking (e.g., 'teams', 'about-company')
+  const sectionId = getSectionId(section.__component);
 
   ///////////////////////////////////////////////
   // Convert the kebap-case name to PascalCase
@@ -37,9 +50,11 @@ export default function componentResolver(section: DynamicComponent, index: numb
   const reactElement = createElement(LazyModule, { data: section, key: index });
 
   return (
-    <Suspense fallback={<Loader />} key={index}>
-      {reactElement}
-    </Suspense>
+    <section id={sectionId} key={index} className="scroll-mt-20">
+      <ScrollReveal animation="fade-up" duration={800} delay={index * 50}>
+        <Suspense fallback={<Loader />}>{reactElement}</Suspense>
+      </ScrollReveal>
+    </section>
   );
 }
 
