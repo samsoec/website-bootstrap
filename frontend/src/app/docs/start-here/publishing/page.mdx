@@ -1,0 +1,65 @@
+# How Publishing Works
+
+import { Callout, Steps } from 'nextra/components'
+
+Every piece of content has two states: **Draft** (only you can see it) and **Published** (visible on the website).
+
+<Callout type="warning">
+Changes are **not saved automatically**. Always click Save or Publish when done editing.
+</Callout>
+
+## How to Publish
+
+<Steps>
+### Make your changes
+
+Edit the content fields as needed.
+
+### Save (as Draft)
+
+Click **Save** to save your work without publishing. This is useful for:
+- Work in progress
+- Content that needs review
+- Scheduled content
+
+### Publish
+
+Click **Publish** to make content live on the website. Changes appear after the page's revalidation window (a few minutes, configurable via `NEXT_PUBLIC_STRAPI_REVALIDATE_SECONDS`).
+</Steps>
+
+## How to Unpublish
+
+To remove content from the website without deleting it:
+
+<Steps>
+### Open the content entry
+
+Navigate to the content you want to unpublish.
+
+### Click Unpublish
+
+Click the **Unpublish** button in the top right.
+
+### Confirm
+
+The content is now in draft state and hidden from the website.
+</Steps>
+
+## Publishing Tips
+
+- Verify all required fields are filled (title, slug, cover image)
+- Check every configured locale version if the content type supports translations
+
+<Callout type="info">
+**Slug** is the URL-friendly version of the title. For example:  
+Title: "How We Build Software"  
+Slug: `how-we-build-software`
+</Callout>
+
+## Common Publishing Errors
+
+| Error | Solution |
+|-------|----------|
+| "Required field" | Fill in all highlighted fields |
+| "Unique constraint" | Change the slug to be unique |
+| "Media not found" | Re-upload or select a different image |

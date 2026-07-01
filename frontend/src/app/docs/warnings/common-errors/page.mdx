@@ -1,0 +1,94 @@
+# Common Errors
+
+Frequently encountered issues and solutions.
+
+## "Required Field" Error
+
+import { Callout } from 'nextra/components'
+
+<Callout type="error">
+  This field is required
+</Callout>
+
+**Cause:** A mandatory field is empty.
+
+**Fix:**
+1. Look for red-highlighted fields
+2. Fill in the missing data
+3. Try saving again
+
+## "Unique Field" Error
+
+<Callout type="error">
+  This attribute must be unique
+</Callout>
+
+**Cause:** Slug or unique field already exists.
+
+**Fix:**
+1. Change the slug/value
+2. Make it unique
+3. Try saving again
+
+## "Invalid Format" Error
+
+<Callout type="error">
+  Invalid format for this field
+</Callout>
+
+**Cause:** Wrong data type entered.
+
+**Fix:**
+- Email field: Use valid email format
+- URL field: Include https://
+- Number field: Use only numbers
+- Date field: Use correct date format
+
+## "Relation Not Found" Error
+
+<Callout type="error">
+  Referenced entry not found
+</Callout>
+
+**Cause:** Linked content was deleted.
+
+**Fix:**
+1. Open the affected entry
+2. Find broken relation fields
+3. Select new valid entries
+4. Save
+
+## "Permission Denied" Error
+
+<Callout type="error">
+  You don't have permission
+</Callout>
+
+**Cause:** Role lacks required permissions.
+
+**Fix:** Contact administrator to update your role permissions.
+
+## "Validation Error" Error
+
+<Callout type="error">
+  Validation error on content
+</Callout>
+
+**Cause:** Data doesn't meet validation rules.
+
+**Fix:**
+- Check field constraints
+- Review min/max limits
+- Verify format requirements
+
+## Session Expired
+
+<Callout type="warning">
+  Your session has expired
+</Callout>
+
+**Fix:**
+1. Save work locally (copy text)
+2. Refresh the page
+3. Log in again
+4. Re-enter changes

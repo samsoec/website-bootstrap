@@ -1,0 +1,32 @@
+# What You Should Avoid
+
+import { Callout } from 'nextra/components'
+
+Some changes require a developer. Attempting these yourself may break the website.
+
+## Don't Touch These
+
+| What | Why |
+|------|-----|
+| Website colors & design | Styled in code, not the CMS |
+| Creating new section types | Requires coding new components (see the frontend's component-resolver) |
+| Form logic & destinations | Backend configuration |
+
+<Callout type="warning">
+If you need any of these changes, contact your developer.
+</Callout>
+
+## Be Careful With
+
+| What | Risk |
+|------|------|
+| Deleting content | Cannot be undone easily |
+| Changing slugs on published content | Breaks existing links |
+| Removing required fields | Page may not display correctly |
+| Unpublishing pages linked in navigation | Creates broken links |
+
+## Safe Alternative
+
+Instead of deleting content you don't need, **unpublish it**. This hides it from the website but keeps it available if you need it later.
+
+See [How Publishing Works](/docs/start-here/publishing) for details.
