@@ -5,6 +5,15 @@ interface HighlightedTextProps {
   color?: string;
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 export default function HighlightedText({ text, tag, className, color }: HighlightedTextProps) {
   const tempText = text.split(" ");
   const result = [];
@@ -13,9 +22,9 @@ export default function HighlightedText({ text, tag, className, color }: Highlig
 
   tempText.forEach((word: string, index: number) => {
     if (word.includes("[")) {
-      const highlight = word.replace("[", "").replace("]", "");
+      const highlight = escapeHtml(word.replace("[", "").replace("]", ""));
       result.push(`<span key=${index} class="${color ? color : ""}">${highlight}</span> `);
-    } else result.push(word + " ");
+    } else result.push(escapeHtml(word) + " ");
   });
 
   result.push(`</${tag}>`);
