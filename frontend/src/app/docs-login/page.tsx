@@ -8,7 +8,12 @@ function LoginForm() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const redirectTo = searchParams.get("from") || "/docs";
+  const requestedRedirect = searchParams.get("from") || "/docs";
+  // Only allow same-origin, /docs-scoped paths to prevent open redirects via `?from=`.
+  const redirectTo =
+    requestedRedirect.startsWith("/docs") && !requestedRedirect.startsWith("//")
+      ? requestedRedirect
+      : "/docs";
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
