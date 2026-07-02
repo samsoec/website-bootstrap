@@ -17,6 +17,11 @@ type Path<T> = PathImpl<T, keyof T> | keyof T;
 export type DictionaryPath = Path<Dictionary>;
 
 // Helper to get nested value from object using dot notation
-export function getNestedValue<T>(obj: T, path: string): any {
-  return path.split(".").reduce((acc: any, part: string) => acc?.[part], obj);
+export function getNestedValue<T>(obj: T, path: string): unknown {
+  return path.split(".").reduce<unknown>((acc, part) => {
+    if (acc && typeof acc === "object") {
+      return (acc as Record<string, unknown>)[part];
+    }
+    return undefined;
+  }, obj);
 }

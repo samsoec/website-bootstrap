@@ -6,13 +6,13 @@ import { getNestedValue } from "@/types/dictionary";
 import { i18n } from "../../i18n-config";
 
 interface DictionaryContextType {
-  dict: Dictionary;
+  dict: Dictionary | null;
   lang: string;
 }
 
-// Create context with a default value to handle SSR/SSG
+// Default value covers useDictionary() being called before a Provider mounts (SSR/SSG).
 const defaultContextValue: DictionaryContextType = {
-  dict: {} as Dictionary, // Type assertion for default empty state during SSR
+  dict: null,
   lang: i18n.defaultLocale,
 };
 
@@ -34,7 +34,7 @@ export function useDictionary() {
   const context = useContext(DictionaryContext);
 
   const t = (path: DictionaryPath): string => {
-    const value = getNestedValue(context.dict, path as string);
+    const value = context.dict ? getNestedValue(context.dict, path as string) : undefined;
 
     if (typeof value !== "string") {
       console.warn(`Translation not found for path: ${path}`);
