@@ -5,6 +5,8 @@
  */
 
 module.exports = (config, { strapi }) => {
+  const { MEDIA_FIELDS, MEDIA_FIELDS_MINIMAL } = require("../../../utils/media-populate-fields");
+
   return async (ctx, next) => {
     const populate = {
       contentSections: {
@@ -12,7 +14,7 @@ module.exports = (config, { strapi }) => {
           'sections.hero': {
             populate: {
               picture: {
-                fields: ["url", "alternativeText", "caption", "width", "height"],
+                fields: MEDIA_FIELDS,
               },
               buttons: {
                 populate: true,
@@ -31,7 +33,7 @@ module.exports = (config, { strapi }) => {
               features: {
                 populate: {
                   icon: {
-                    fields: ["url", "alternativeText"],
+                    fields: MEDIA_FIELDS_MINIMAL,
                   },
                 },
               },
@@ -42,7 +44,7 @@ module.exports = (config, { strapi }) => {
               features: {
                 populate: {
                   media: {
-                    fields: ["url", "alternativeText", "caption", "width", "height"],
+                    fields: MEDIA_FIELDS,
                   },
                 },
               },
@@ -53,7 +55,7 @@ module.exports = (config, { strapi }) => {
               testimonials: {
                 populate: {
                   picture: {
-                    fields: ["url", "alternativeText", "caption", "width", "height"],
+                    fields: MEDIA_FIELDS,
                   },
                 },
               },
@@ -62,10 +64,10 @@ module.exports = (config, { strapi }) => {
           'sections.large-video': {
             populate: {
               video: {
-                fields: ["url", "alternativeText"],
+                fields: MEDIA_FIELDS_MINIMAL,
               },
               poster: {
-                fields: ["url", "alternativeText"],
+                fields: MEDIA_FIELDS_MINIMAL,
               },
             },
           },
@@ -91,7 +93,7 @@ module.exports = (config, { strapi }) => {
               feature: {
                 populate: {
                   media: {
-                    fields: ["url", "alternativeText", "caption", "width", "height"],
+                    fields: MEDIA_FIELDS,
                   },
                 },
               },

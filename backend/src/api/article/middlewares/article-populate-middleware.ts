@@ -5,6 +5,8 @@
  */
 
 module.exports = (config, { strapi }) => {
+  const { MEDIA_FIELDS } = require("../../../utils/media-populate-fields");
+
   return async (ctx, next) => {
     const populate = {
       blocks: {
@@ -12,7 +14,7 @@ module.exports = (config, { strapi }) => {
           'shared.media': {
             populate: {
               file: {
-                fields: ["url", "alternativeText", "caption", "width", "height"],
+                fields: MEDIA_FIELDS,
               },
             },
           },
@@ -25,7 +27,7 @@ module.exports = (config, { strapi }) => {
           'shared.slider': {
             populate: {
               files: {
-                fields: ["url", "alternativeText", "caption", "width", "height"],
+                fields: MEDIA_FIELDS,
               },
             },
           },
@@ -35,7 +37,7 @@ module.exports = (config, { strapi }) => {
         },
       },
       cover: {
-        fields: ["url", "alternativeText", "caption", "width", "height"],
+        fields: MEDIA_FIELDS,
       },
       category: {
         fields: ["name", "slug"],
