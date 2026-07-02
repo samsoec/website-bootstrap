@@ -1,9 +1,9 @@
 import { fetchAPI } from "@/app/[lang]/utils/fetch-api";
+import { getStrapiAuthHeaders } from "@/app/[lang]/utils/api-helpers";
 import Post from "@/app/[lang]/views/post";
 import type { Metadata } from "next";
 
 async function getPostBySlug(slug: string) {
-  const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
   const path = `/articles`;
   const urlParamsObject = {
     filters: { slug },
@@ -24,19 +24,18 @@ async function getPostBySlug(slug: string) {
       },
     },
   };
-  const options = { headers: { Authorization: `Bearer ${token}` } };
+  const options = { headers: getStrapiAuthHeaders() };
   const response = await fetchAPI(path, urlParamsObject, options);
   return response;
 }
 
 async function getMetaData(slug: string) {
-  const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
   const path = `/articles`;
   const urlParamsObject = {
     filters: { slug },
     populate: { seo: { populate: "*" } },
   };
-  const options = { headers: { Authorization: `Bearer ${token}` } };
+  const options = { headers: getStrapiAuthHeaders() };
   const response = await fetchAPI(path, urlParamsObject, options);
   return response.data;
 }
@@ -64,9 +63,8 @@ export default async function PostRoute({ params }: { params: Promise<{ slug: st
 }
 
 export async function generateStaticParams() {
-  const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
   const path = `/articles`;
-  const options = { headers: { Authorization: `Bearer ${token}` } };
+  const options = { headers: getStrapiAuthHeaders() };
   const articleResponse = await fetchAPI(
     path,
     {

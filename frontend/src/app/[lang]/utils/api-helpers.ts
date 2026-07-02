@@ -4,6 +4,14 @@ export function getStrapiURL(path = "") {
   return `${process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337"}${path}`;
 }
 
+export function getStrapiToken(): string | undefined {
+  return process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
+}
+
+export function getStrapiAuthHeaders(): { Authorization: string } {
+  return { Authorization: `Bearer ${getStrapiToken()}` };
+}
+
 export function getStrapiMedia(url: string | null) {
   if (url == null) {
     return null;
@@ -32,6 +40,3 @@ export function formatDate(dateString: string, locale: string = i18n.defaultLoca
   const bcp47Locale = localeMap[locale] || localeMap[i18n.defaultLocale];
   return date.toLocaleDateString(bcp47Locale, options);
 }
-
-// ADDS DELAY TO SIMULATE SLOW API REMOVE FOR PRODUCTION
-export const delay = (time: number) => new Promise((resolve) => setTimeout(() => resolve(1), time));

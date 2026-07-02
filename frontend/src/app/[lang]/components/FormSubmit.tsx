@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { getStrapiURL } from "../utils/api-helpers";
+import { fetchAPI } from "../utils/fetch-api";
 
 export default function FormSubmit({ placeholder, text }: { placeholder: string; text: string }) {
   const [email, setEmail] = useState("");
@@ -21,22 +21,29 @@ export default function FormSubmit({ placeholder, text }: { placeholder: string;
       return;
     }
 
-    const res = await fetch(getStrapiURL() + "/api/lead-form-submissions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ data: { email } }),
-    });
+    try {
+      const responseData = await fetchAPI(
+        "/lead-form-submissions",
+        {},
+        {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ data: { email } }),
+        }
+      );
 
-    if (!res.ok) {
+      if (responseData.error) {
+        setErrorMessage("Email failed to submit.");
+        return;
+      }
+
+      setErrorMessage("");
+      setSuccessMessage("Email successfully submitted!");
+      setEmail("");
+    } catch (error: unknown) {
+      console.error(error);
       setErrorMessage("Email failed to submit.");
-      return;
     }
-    setErrorMessage("");
-    setSuccessMessage("Email successfully submitted!");
-    setEmail("");
   }
 
   return (

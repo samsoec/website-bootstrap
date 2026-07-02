@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { fetchAPI } from "../utils/fetch-api";
+import { getStrapiAuthHeaders } from "../utils/api-helpers";
+import { ARTICLE_LIST_POPULATE } from "../utils/article-queries";
 import type { Article } from "@/types/generated";
 
 import Loader from "../components/Loader";
@@ -15,7 +17,7 @@ interface Meta {
   };
 }
 
-export default function Profile() {
+export default function BlogPage() {
   const [meta, setMeta] = useState<Meta | undefined>();
   const [data, setData] = useState<Article[]>([]);
   const [isLoading, setLoading] = useState(true);
@@ -23,23 +25,16 @@ export default function Profile() {
   const fetchData = useCallback(async (start: number, limit: number) => {
     setLoading(true);
     try {
-      const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
       const path = `/articles`;
       const urlParamsObject = {
         sort: { createdAt: "desc" },
-        populate: {
-          cover: { fields: ["url"] },
-          category: { populate: "*" },
-          authorsBio: {
-            populate: "*",
-          },
-        },
+        populate: ARTICLE_LIST_POPULATE,
         pagination: {
           start: start,
           limit: limit,
         },
       };
-      const options = { headers: { Authorization: `Bearer ${token}` } };
+      const options = { headers: getStrapiAuthHeaders() };
       const responseData = await fetchAPI(path, urlParamsObject, options);
 
       if (start === 0) {
@@ -49,7 +44,7 @@ export default function Profile() {
       }
 
       setMeta(responseData.meta);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error(error);
     } finally {
       setLoading(false);

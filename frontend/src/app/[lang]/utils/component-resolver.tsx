@@ -9,7 +9,7 @@ type DynamicComponent = PageSection | ArticleBlock;
  * Get the section ID from a component name
  * e.g., 'sections.teams' -> 'teams', 'sections.about-company' -> 'about-company'
  */
-export function getSectionId(component: string): string {
+function getSectionId(component: string): string {
   const parts = component.split(".");
   return parts[1] || parts[0];
 }
@@ -34,8 +34,6 @@ export default function componentResolver(section: DynamicComponent, index: numb
     componentName += capitalizeFirstLetter(s);
   });
   ///////////////////////////////////////////////
-
-  //console.log(`ComponentResolver: Category => ${category} | Component => ${componentName} | Path => ../components/${componentName}`)
 
   // The path for dynamic imports cannot be fully dynamic.
   // Webpack requires a static part of the import path at the beginning.

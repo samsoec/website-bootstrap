@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { getStrapiMedia, getStrapiURL } from "./utils/api-helpers";
+import { getStrapiMedia, getStrapiURL, getStrapiToken, getStrapiAuthHeaders } from "./utils/api-helpers";
 import { fetchAPI } from "./utils/fetch-api";
 
 import { i18n, Locale } from "../../../i18n-config";
@@ -13,12 +13,10 @@ import { DictionaryProvider } from "@/contexts/DictionaryContext";
 import { getDictionary, type Locale as DictionaryLocale } from "@/dictionaries";
 
 async function getGlobal(lang: string): Promise<StrapiResponse<Global> | null> {
-  const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
-
-  if (!token) throw new Error("The Strapi API Token environment variable is not set.");
+  if (!getStrapiToken()) throw new Error("The Strapi API Token environment variable is not set.");
 
   const path = `/global`;
-  const options = { headers: { Authorization: `Bearer ${token}` } };
+  const options = { headers: getStrapiAuthHeaders() };
 
   const urlParamsObject = {
     populate: [

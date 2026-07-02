@@ -1,5 +1,6 @@
 import ArticleSelect from "@/app/[lang]/components/ArticleSelect";
 import { fetchAPI } from "@/app/[lang]/utils/fetch-api";
+import { getStrapiAuthHeaders } from "@/app/[lang]/utils/api-helpers";
 import type { Category, Article } from "@/types/generated";
 
 interface SideMenuData {
@@ -9,8 +10,7 @@ interface SideMenuData {
 
 async function fetchSideMenuData(filter: string): Promise<SideMenuData | undefined> {
   try {
-    const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
-    const options = { headers: { Authorization: `Bearer ${token}` } };
+    const options = { headers: getStrapiAuthHeaders() };
 
     const categoriesResponse = await fetchAPI("/categories", { populate: "*" }, options);
 
@@ -32,7 +32,7 @@ async function fetchSideMenuData(filter: string): Promise<SideMenuData | undefin
       articles: articlesResponse.data,
       categories: categoriesResponse.data,
     };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error(error);
   }
 }
@@ -72,9 +72,8 @@ export default async function LayoutRoute({
 }
 
 export async function generateStaticParams() {
-  const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
   const path = `/articles`;
-  const options = { headers: { Authorization: `Bearer ${token}` } };
+  const options = { headers: getStrapiAuthHeaders() };
   const articleResponse = await fetchAPI(
     path,
     {

@@ -1,10 +1,11 @@
 import PageHeader from "@/app/[lang]/components/PageHeader";
 import { fetchAPI } from "@/app/[lang]/utils/fetch-api";
+import { getStrapiAuthHeaders } from "@/app/[lang]/utils/api-helpers";
+import { ARTICLE_LIST_POPULATE } from "@/app/[lang]/utils/article-queries";
 import BlogList from "@/app/[lang]/views/blog-list";
 
 async function fetchPostsByCategory(filter: string) {
   try {
-    const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
     const path = `/articles`;
     const urlParamsObject = {
       sort: { createdAt: "desc" },
@@ -13,20 +14,12 @@ async function fetchPostsByCategory(filter: string) {
           slug: filter,
         },
       },
-      populate: {
-        cover: { fields: ["url"] },
-        category: {
-          populate: "*",
-        },
-        authorsBio: {
-          populate: "*",
-        },
-      },
+      populate: ARTICLE_LIST_POPULATE,
     };
-    const options = { headers: { Authorization: `Bearer ${token}` } };
+    const options = { headers: getStrapiAuthHeaders() };
     const responseData = await fetchAPI(path, urlParamsObject, options);
     return responseData;
-  } catch (error) {
+  } catch (error: unknown) {
     console.error(error);
   }
 }
